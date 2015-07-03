@@ -29,7 +29,7 @@ M(2,4) = lengthA + lengthB + lengthC;
 % Create the robot
 RRR = robot({joint1, joint2, joint3}, M);
 
-% Create a trajectory is joint space, only moving joint 2.
+% Create a trajectory in joint space, only moving joint 2.
 q2 = [-pi:pi/16:pi];
 q1 = zeros(size(q2));
 q3 = zeros(size(q2));
