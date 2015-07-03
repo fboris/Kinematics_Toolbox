@@ -37,8 +37,8 @@ joint_space_trajectory = [q1; q2; q3];
 
 % Convert the joint-space trajectory into the end-effector
 % trajectory using the forward-kinematics.
-cartesian_trajectory = fkine(RRP, joint_space_trajectory);
+end_effector_trajectory = fkine(RRP, joint_space_trajectory);
 
 % Plot the results
 named_figure('Cartesian Trajectory of the End-Effector');
-drawframetraj(cartesian_trajectory);
+drawframetraj(end_effector_trajectory);
