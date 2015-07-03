@@ -16,8 +16,8 @@ lengthB = 3;
 lengthC = 1;
 
 joint1 = [0; 0; 0; 0; 0; 1];
-joint2 = [a; 0; 0; 0; 0; 1];
-joint3 = [b; 0; 0; 0; 0; 1];
+joint2 = [lengthA; 0; 0; 0; 0; 1];
+joint3 = [lengthB; 0; 0; 0; 0; 1];
 
 % Specify the end-effector reference/home pose
 % as a homogeneous matrix.
