@@ -44,6 +44,8 @@ dt = 0.05;
 desired_end_effector_body_velocity = [-0.1; 0; 0; 0; 0; 0];
 joint_angles = zeros(6, n_trajectory_entries);
 
+figure;
+
 % Fill the trajectory.
 for i=1:n_trajectory_entries
   % Evaluate the body jacobian at the current joint angles.
@@ -55,6 +57,34 @@ for i=1:n_trajectory_entries
 
   % Compute the next trajectory point using simple integration.
   joint_angles(:, i+1) = joint_angles(:, i) + (dt * joint_velocities);
+  
+  if (i==1)
+    subplot(2,2,1);
+    title('Initial Manipulability Ellipsoid (Translation)');
+    J = body_jacobian(1:3, :);
+    plot_ellipse(J * J')
+    nice3d;
+
+    subplot(2,2,2);
+    title('Initial Manipulability Ellipsoid (Rotation)');
+    J = body_jacobian(4:6, :);
+    plot_ellipse(J * J')
+    nice3d;
+  end
+
+  if (i==n_trajectory_entries)
+    subplot(2,2,3);
+    title('Final Manipulability Ellipsoid (Translation)');
+    J = body_jacobian(1:3, :);
+    plot_ellipse(J * J')
+    nice3d;
+
+    subplot(2,2,4);
+    title('Final Manipulability Ellipsoid (Rotation)');
+    J = body_jacobian(4:6, :);
+    plot_ellipse(J * J')
+    nice3d;
+  end
 end
 
 % For display purposes convert the joint-space trajectory into an end-effector trajectory
@@ -63,3 +93,4 @@ end_effector_trajectory = fkine(RRR, joint_angles);
 % Plot the end-effector trajectory
 named_figure('Cartesian Trajectory of the End-Effector');
 drawframetraj(end_effector_trajectory);
+nice3d;
