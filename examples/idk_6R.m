@@ -94,3 +94,29 @@ end_effector_trajectory = fkine(RRR, joint_angles);
 named_figure('Cartesian Trajectory of the End-Effector');
 drawframetraj(end_effector_trajectory);
 nice3d;
+
+
+figure;
+subplot(2,3,1);
+plot(joint_angles(1,:))
+title('Joint Angle 1');
+
+subplot(2,3,2);
+plot(joint_angles(2,:))
+title('Joint Angle 2');
+
+subplot(2,3,3);
+plot(joint_angles(3,:))
+title('Joint Angle 3');
+
+subplot(2,3,4);
+plot(joint_angles(4,:))
+title('Joint Angle 4');
+
+subplot(2,3,5);
+plot(joint_angles(5,:))
+title('Joint Angle 5');
+
+subplot(2,3,6);
+plot(joint_angles(6,:))
+title('Joint Angle 6');
