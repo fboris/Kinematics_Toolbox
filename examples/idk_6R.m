@@ -43,6 +43,7 @@ n_trajectory_entries = 200;
 dt = 0.05;
 desired_end_effector_body_velocity = [-0.1; 0; 0; 0; 0; 0];
 joint_angles = zeros(6, n_trajectory_entries);
+joint_velocities = zeros(6, n_trajectory_entries);
 
 figure;
 
@@ -53,10 +54,10 @@ for i=1:n_trajectory_entries
   inv_body_jacobian = pinv(body_jacobian);
 
   % Compute the joint velocities that will achieve the desired end-effector body velocity.
-  joint_velocities = inv_body_jacobian * desired_end_effector_body_velocity;
+  joint_velocities(:, i) = inv_body_jacobian * desired_end_effector_body_velocity;
 
   % Compute the next trajectory point using simple integration.
-  joint_angles(:, i+1) = joint_angles(:, i) + (dt * joint_velocities);
+  joint_angles(:, i+1) = joint_angles(:, i) + (dt * joint_velocities(:, i));
   
   if (i==1)
     subplot(2,2,1);
@@ -95,7 +96,7 @@ named_figure('Cartesian Trajectory of the End-Effector');
 drawframetraj(end_effector_trajectory);
 nice3d;
 
-
+% Plot joint angles
 figure;
 subplot(2,3,1);
 plot(joint_angles(1,:))
@@ -120,3 +121,29 @@ title('Joint Angle 5');
 subplot(2,3,6);
 plot(joint_angles(6,:))
 title('Joint Angle 6');
+
+% Plot joint velocities
+figure;
+subplot(2,3,1);
+plot(joint_velocities(1,:))
+title('Joint Velocity 1');
+
+subplot(2,3,2);
+plot(joint_velocities(2,:))
+title('Joint Velocity 2');
+
+subplot(2,3,3);
+plot(joint_velocities(3,:))
+title('Joint Velocity 3');
+
+subplot(2,3,4);
+plot(joint_velocities(4,:))
+title('Joint Velocity 4');
+
+subplot(2,3,5);
+plot(joint_velocities(5,:))
+title('Joint Velocity 5');
+
+subplot(2,3,6);
+plot(joint_velocities(6,:))
+title('Joint Velocity 6');
