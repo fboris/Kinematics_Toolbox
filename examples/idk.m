@@ -30,7 +30,7 @@ M(1, 4) = 2;
 RRR = robot({joint1, joint2, joint3}, M);
 
 % Compute the IDK for a constant end-effectory velocity of v_x = 0.05m/s for 5s.
-% I.e. dx = 25cm. Wwe expect the end-effector to move from (2, 0, 0) to (2.25, 0, 0).
+% I.e. dx = 25cm. We expect the end-effector to move from (2, 0, 0) to (2.25, 0, 0).
 n_trajectory_entries = 100;
 dt = 0.05;
 desired_end_effector_body_velocity = [0.05; 0; 0];
