@@ -1,4 +1,4 @@
-% Planar RRR Arm Example
+% Non-Planar RRR Arm Example
 
 clear;
 close all;
@@ -15,24 +15,24 @@ lengthA = 2;
 lengthB = 3;
 lengthC = 1;
 
-joint1 = [0; 0; 0; 0; 0; 1];
-joint2 = [lengthA; 0; 0; 0; 0; 1];
-joint3 = [lengthB; 0; 0; 0; 0; 1];
+joint1 = [0; 0; 0; 0; 1; 0];
+joint2 = [0; 0; 0; 0; 0; 1];
+joint3 = [-(lengthA + lengthB); 0; 0; 0; 0; 1];
 
 % Specify the end-effector reference/home pose
 % as a homogeneous matrix.
 % E.g. the end-effector is at [x,y,z] = [0, 2, 0]
 % with no rotation.
 M = eye(4);
-%M(2,4) = lengthA + lengthB + lengthC;
-M(1, 4) = 4;
+M(3,4) = lengthA + lengthB + lengthC;
+%M(1, 4) = 4;
 
 % Create the robot
 RRR = robot({joint1, joint2, joint3}, M);
 
 % Create a trajectory in joint space, only moving joint 2.
-q2 = [-pi:pi/16:pi];
-q1 = zeros(size(q2));
+q1 = [-pi/2:pi/16:pi/2];
+q2 = [-pi/2:pi/16:pi/2];
 q3 = zeros(size(q2));
 joint_space_trajectory = [q1; q2; q3]
 
@@ -49,11 +49,11 @@ body_jacobian = bjacob(RRR, [0; 0; 0])
 
 % Calculate the instantaneous end-effector body velocity for a
 % given set of joint velocities
-body_velocity = body_jacobian * [0.1; 0; 0]
+body_velocity = body_jacobian * [0; 0.1; 0]
 
 % Evalute the spatial Jacobian also at the reference pose. 
 spatial_jacobian = sjacob(RRR, [0; 0; 0])
 
 % Calculate the instantaneous end-effector spatial velocity for a
 % given set of joint velocities
-spatial_velocity = spatial_jacobian * [0.1; 0; 0]
+spatial_velocity = spatial_jacobian * [0; 0.1; 0]
